@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\AuthorizationController;
+use App\Http\Controllers\PostController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,3 +23,10 @@ Auth::routes(["verify" => true]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::post('/register-confirm', [RegisterController::class,'register_confirm'])->name('register-confirm');
+
+Route::get('/gate',[AuthorizationController::class,'index'])
+->name('gate.index');
+// ->middleware('can:isAdmin');
+
+Route::get('/posts',[PostController::class,'index'])->name('post.index');
+Route::get('/posts/{post}',[PostController::class,'show'])->name('post.show')->middleware('can:view,post');
