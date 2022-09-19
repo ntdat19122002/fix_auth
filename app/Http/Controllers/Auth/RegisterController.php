@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -71,10 +72,8 @@ class RegisterController extends Controller
         ]);
     }
 
-    // public function register_confirm(Request $request){
-    //     $name = $request->name;
-    //     $email = $request->email;
-    //     $password = $request->password;
-    //     return view('auth.register-confirm', compact('name','email','password'));
-    // }
+    public function register_confirm(Request $request){
+        $all = $request;
+        return view('auth.register-confirm', compact('all'));
+    }
 }

@@ -13,7 +13,8 @@
                   <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign up</p>
                     
                   {{-- Begin: form-register --}}
-                  <form action="{{ route("register-confirm") }}" method="GET" class="mx-1 mx-md-4">
+                  <form action="{{ route("register-confirm") }}" method="POST" class="mx-1 mx-md-4">
+                    @csrf
                     <div class="d-flex flex-row align-items-center mb-4">
                       <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                       <div class="form-outline flex-fill mb-0">
