@@ -4,10 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use Datatables;
 
 class PostController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
+        if ($request->ajax()) {
+            $data = Post::with('user')->get();
+            return datatables($data)->make(true);
+        }
         $posts = Post::with('user')->get();
         return view('policy.index',compact('posts'));
     } 

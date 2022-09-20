@@ -41,8 +41,8 @@
 </div>
 <script>
     $(document).ready( function () {
-        var data = {!! $posts->toJson() !!};        
-        console.log(data);
+        // var data = {!! $posts->toJson() !!};        
+        // console.log(data);
         $('#list-header').on({
             mouseenter: function(){
                 $(this).css('background-color','lightgray');
@@ -52,8 +52,10 @@
             }
         })
         $('#posts-table').DataTable({
-            'processing':true,
-            data,
+            serverSide :true,
+            processing:true,
+            // data,
+            ajax: "{{ route('post.index') }}",
             columns:[
                 {data:'id'},
                 {data:'title'},
