@@ -13,8 +13,7 @@ class PostController extends Controller
             $data = Post::with('user')->get();
             return datatables($data)->make(true);
         }
-        $posts = Post::with('user')->get();
-        return view('policy.index',compact('posts'));
+        return view('policy.index');
     } 
 
     public function show(Post $post){
