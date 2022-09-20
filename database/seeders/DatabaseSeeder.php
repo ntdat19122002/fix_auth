@@ -44,6 +44,6 @@ class DatabaseSeeder extends Seeder
             'role' => 'editor'
         ]);
 
-        Post::factory(100)->create();
+        Post::factory(1000)->create();
     }
 }
