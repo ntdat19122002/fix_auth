@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
         User::create([
             'name' => 'admin',
             'email' => 'admin@gmail.com',
+            // 'email_verify_at' => date('2022-09-20 07:45:29'),
             'password' => bcrypt('password'),
             'role' => 'admin'
         ]);
@@ -33,6 +34,7 @@ class DatabaseSeeder extends Seeder
         User::create([
             'name' => 'user',
             'email' => 'user@gmail.com',
+            // 'email_verify_at' => date('2022-09-20 07:45:29'),
             'password' => bcrypt('password'),
             'role' => 'user'
         ]);
@@ -40,10 +42,11 @@ class DatabaseSeeder extends Seeder
         User::create([
             'name' => 'editor',
             'email' => 'editor@gmail.com',
+            // 'email_verify_at' => date('2022-09-20 07:45:29'),
             'password' => bcrypt('password'),
             'role' => 'editor'
         ]);
 
-        Post::factory(8)->create();
+        Post::factory(1000)->create();
     }
 }

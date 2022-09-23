@@ -17,23 +17,6 @@
                     <th>Action</th>
                   </tr>
                 </thead>
-                <tbody>
-
-                    {{-- @foreach ($posts as $post)
-                     <tr>
-                        <th scope="row">{{ $post->id }}</th>
-                        <td>{{ $post->title }}</td>
-                        <td>{{ $post->description }}</td>
-                        <td>{{ $post->user->name }}</td>
-                        <td>
-                            @can('view', $post)
-                            <a href="{{ route('post.show', $post) }}" class="btn btn-sm btn-success">View</a>
-                            @endcan
-                        </td>
-                      </tr>
-                    @endforeach --}}
-
-                </tbody>
               </table>
 
         </div>
@@ -41,8 +24,6 @@
 </div>
 <script>
     $(document).ready( function () {
-        var data = {!! $posts->toJson() !!};        
-        console.log(data);
         $('#list-header').on({
             mouseenter: function(){
                 $(this).css('background-color','lightgray');
@@ -51,14 +32,16 @@
                 $(this).css('background-color','lightblue');
             }
         })
+ 
         $('#posts-table').DataTable({
-            'processing':true,
-            data,
+            serverSide :true,
+            processing:true,
+            ajax: "{{ route('post.index') }}",
             columns:[
                 {data:'id'},
                 {data:'title'},
                 {data:'description'},
-                {data:'user.name'},
+                {data:'username'},
             ]
         });
     } );
