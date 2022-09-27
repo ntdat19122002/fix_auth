@@ -2,31 +2,37 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Post;
 use Datatables;
+use App\Models\Post;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class PostController extends Controller
 {
     public function index(Request $request){
-        if ($request->ajax()) {
-            $data = Post::with('user')->get();
+        // if ($request->ajax()) {
+        //     $data = Post::with('user')->paginate(5);
+        //     $columns = [
+        //         "draw" => 2,
+        //         "recordsTotal" => $data->total(),
+        //         "recordsFiltered" => $data->total(),
+        //         'data' => $data->items()
+        //     ];
+        //     return response()->json($columns);
+        // }
+        if($request->ajax()) {
+            $input = $request->all();
 
-            $columns = [
-                "draw" => 2,
-                "recordsTotal" => $data->count(),
-                "recordsFiltered" => $data->count(),
-                'data' => $data->map(function($post){
-                    return[
-                        'id'            =>$post->id,
-                        'title'         =>$post->title,
-                        'description'   =>$post->description,
-                        'username'      =>$post->user->name
-                    ];
-                }),
-            ];
-            $json = json_encode($columns);
-            return $json;
+            $page = (int)$input['start']/$input['length'] + 1;
+            // dd($page); 
+            $data = Post::with('user')->paginate(5, page: $page);
+           
+            return json_encode([
+                "draw" => (int)$request->get('draw'),
+                "iTotalRecords" => $data->total(),
+                "iTotalDisplayRecords" => $data->total(),
+                "aaData" => $data->items(),
+            ]);
         }
         return view('policy.index');
     } 

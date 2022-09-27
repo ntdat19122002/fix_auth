@@ -17,8 +17,8 @@
                     <th>Action</th>
                   </tr>
                 </thead>
+                {{-- data table --}}
               </table>
-
         </div>
     </div>
 </div>
@@ -34,15 +34,30 @@
         })
  
         $('#posts-table').DataTable({
+            paging: true,
+            pageLength: 5,
             serverSide :true,
-            processing:true,
-            ajax: "{{ route('post.index') }}",
+            processing:true,  
+            ajax: {
+                'type':'GET',
+                'url':"{{ route('post.index') }}",
+                'datatype': 'json',
+                //  "data": function(data) {
+                //      var json = jQuery.parseJSON(data);
+                //      json.draw = json.draw;
+                //      json.recordsTotal = json.total;
+                //      json.recordsFiltered = json.total;
+                //      json.data = json.data;
+                //      console.log(data);
+                //      return JSON.stringify(json); // return JSON string
+                //  }
+            },
             columns:[
-                {data:'id'},
-                {data:'title'},
-                {data:'description'},
-                {data:'username'},
-            ]
+                {data:'id' , name: "id"},
+                {data:'title', name: "title"},
+                {data:'description', name: "description"},
+                {data:'user.name', name: "user_id"},
+            ],
         });
     } );
 </script>
