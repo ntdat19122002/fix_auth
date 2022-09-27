@@ -2,11 +2,17 @@
 
 @section('content')
 <div class="container">
+    <form action="{{ route('posts.import') }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        <input type="file" name="file" class="form-control">
+        <br>
+        <button class="btn btn-success">Import User Data</button>
+    </form>
     <h3>{{ Auth::user()->name }}</h3>
     <hr>
     <div class="row justify-content-center">
         <div class="col-md-8">
-
+            <a class="btn btn-warning float-end" href="{{ route('posts.export') }}">Export User Data</a>
             <table class="table" id="posts-table">
                 <thead>
                   <tr id="list-header">

@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use Datatables;
 use App\Models\Post;
+use App\Exports\PostsExport;
+use App\Imports\PostsImport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PostController extends Controller
 {
@@ -40,4 +43,17 @@ class PostController extends Controller
     public function show(Post $post){
         return view('policy.show')->with('post',$post);
     } 
+
+    public function export() 
+    {
+        return Excel::download(new PostsExport, 'users.xlsx');
+    }
+
+    public function import(Request $request)
+    {
+        $file = $request->file('file');
+        Excel::import(new PostsImport, $file);
+        
+        return redirect('/posts')->with('success', 'All good!');
+    }
 }

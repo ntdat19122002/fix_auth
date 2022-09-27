@@ -31,3 +31,6 @@ Route::get('/gate',[AuthorizationController::class,'index'])
 
 Route::get('/posts',[PostController::class,'index'])->name('post.index');
 Route::get('/posts/{post}',[PostController::class,'show'])->name('post.show')->middleware('can:view,post');
+
+Route::get('/post/export', [PostController::class,'export'])->name('posts.export');
+Route::post('/post/import', [PostController::class,'import'])->name('posts.import');
